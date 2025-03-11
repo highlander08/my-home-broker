@@ -1,0 +1,67 @@
+###
+# @name createAsset
+POST http://localhost:3000/assets
+Content-Type: application/json
+
+{
+    "name": "amz-name",
+    "symbol": "amz-symbol",
+    "price": "4000",
+    "image": "amz.png"
+}
+###
+@assetId = {{createAsset.response.body._id}}
+
+###
+GET http://localhost:3000/assets
+
+###
+GET http://localhost:3000/assets/tww-symbol
+
+### Wallet Endpoints
+# @name createWallet
+POST http://localhost:3000/wallets
+
+###
+@walletId = {{createWallet.response.body._id}}
+
+###
+GET http://localhost:3000/wallets
+
+###
+GET http://localhost:3000/wallets/{{walletId}}
+
+###
+POST http://localhost:3000/assets/amz-symbol/dailies
+Content-Type: application/json
+
+{
+    "date": "2016-12-10",
+    "price": 100
+}
+
+###
+GET http://localhost:3000/assets/amz-symbol/dailies
+###
+POST  http://localhost:3000/wallets/{{walletId}}/assets
+Content-Type: application/json
+
+{
+    "assetId": "{{assetId}}",
+    "shares": 100
+}
+
+################################
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+    "walletId": "{{walletId}}",
+    "assetId": "{{assetId}}",
+    "shares": 10,
+    "price": 100,
+    "type": "BUY"
+}
+
+###
+GET http://localhost:3000/orders?walletId={{walletId}}
