@@ -7,7 +7,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { AssetPresenter } from 'src/assets/assets.presenter';
-import { CreateWalletDto } from './dto/create-wallet.dto';
+import { CreateWalletAssetDto } from './dto/create-wallet.dto';
 import { WalletAsset } from './entities/wallet-asset.entity ';
 import { Wallet } from './entities/wallet.entity';
 
@@ -19,14 +19,14 @@ export class WalletsService {
     private walletAssetSchema: Model<WalletAsset>,
     @InjectConnection() private connection: mongoose.Connection,
   ) {}
-  create(createWalletDto: CreateWalletDto) {
+  create(createWalletDto: CreateWalletAssetDto) {
     return this.walletSchema.create(createWalletDto);
   }
   // filtro de paginação
   findAll() {
     return this.walletSchema.find();
   }
-  // lanaçamento de erross
+  // lanaçamento de erross --
   // refinamentos para a api
   // findOne(id: string) {
   //   return this.walletSchema.findById(id).populate([
